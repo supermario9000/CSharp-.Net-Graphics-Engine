@@ -1,0 +1,15 @@
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\bin\Debug\net9.0\Rasterizer.exe
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\bin\Debug\net9.0\Rasterizer.deps.json
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\bin\Debug\net9.0\Rasterizer.runtimeconfig.json
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\bin\Debug\net9.0\Rasterizer.dll
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\bin\Debug\net9.0\Rasterizer.pdb
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.AssemblyInfoInputs.cache
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.AssemblyInfo.cs
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.csproj.CoreCompileInputs.cache
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.sourcelink.json
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.dll
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\refint\Rasterizer.dll
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.pdb
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\Rasterizer.genruntimeconfig.cache
+C:\Users\Marijus\Documents\GitHub\CSharp-.Net-Graphics-Engine\Rasterizer\obj\Debug\net9.0\ref\Rasterizer.dll
