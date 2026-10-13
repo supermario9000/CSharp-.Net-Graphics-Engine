@@ -19,3 +19,6 @@ The only requirement regarding mobile is that this tool could be used in other p
 
 Considering all of the above, this project's repo will be branched out for easier sub-system development.
 Later, I will consider reworking on this project only in C++. Or even in assembly. To better understand computer graphics.
+
+
+Project is done according to https://haqr.eu/tinyrenderer/ tutorial, changing code to csharp and making the needed adjustments to the code.
