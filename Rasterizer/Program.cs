@@ -1,19 +1,70 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using System.Collections;
+using System.Drawing;
+
 Console.WriteLine("Hello, World!");
 
-public struct TGA_Header
+Image img = new Image(800, 600);
+img.Clear(new Pixel(0, 0, 0, 255));  // opaque black
+img.SetPixel(10, 20, new Pixel(255, 0, 0, 255));
+
+//struct/class darau public dėl paprastumo dirbti
+//visi jų kintamieji nustatyti public, nes kitaip jie būtų default - private
+public class Image
 {
-    char idlength;
-	char colormaptype;
-	char datatypecode;
-	short colormaporigin;
-	short colormaplength;
-	char colormapdepth;
-	short x_origin;
-	short y_origin;
-	short width;
-	short height;
-	char  bitsperpixel;
-	char  imagedescriptor;
+	public int width;
+	public int height;
+	public Pixel[,] ekranas; //ekranu vadinu 2d masyva [,] padaro 2d masyva
+
+	//konstruktorius
+	public Image(int width, int height)
+	{
+		this.width = width;
+		this.height = height;
+		ekranas = new Pixel[height,width]; //apkeičiu koordinates, kad būtų lengviau dirbti. Toliau visur masyve naudoju [y,x]
+	}
+
+	public void SetPixel(int x, int y, Pixel color)
+	{
+		ekranas[y,x] = color;
+	}
+
+	public Pixel GetPixel(int x, int y)
+	{
+		return ekranas[y, x]; // grąžinama kopija, nes Pixel yra struct
+	}
+
+	public void Clear(Pixel color) //visą ekraną nudažome viena spalva
+	{
+		for (int y=0; y < height; y++)
+		{
+			for(int x=0; x < width; x++)
+			{
+				ekranas[y,x]=color;
+			}
+		}
+	}
 }
+
+public struct Pixel
+{
+	//koordinačių neapsirašau, nes jos ir taip bus pasiekiamos per ekranas[x,y]
+	//spalvą darau byte kintamajame, nes jis užima mažai atminties ir iškart turi 0-255 apribojimus
+	public byte R, G, B, A; //alpha gali buti nuo 0 iki 1, tačiau apsibrėžiu kaip byte, konvertuoti galiu vėliau
+	public Pixel (byte r, byte g, byte b, byte a)
+	{
+		R = r;
+		G = g;
+		B = b;
+		A = a;
+	}
+
+	public void SetColor(byte r, byte g, byte b, byte a)
+	{
+		R = r;
+		G = g;
+		B = b;
+		A = a;
+	}
+}
+
 
