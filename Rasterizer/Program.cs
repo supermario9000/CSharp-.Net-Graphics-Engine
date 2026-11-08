@@ -80,6 +80,7 @@ public struct Pixel
 
 class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti po klasiu deklaracija.
 {
+	const string OutputFolder = "Images";
 	static void Main()
 	{
 		Console.WriteLine("Experiments 1-4 starting...");
@@ -155,20 +156,33 @@ class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti p
 		//x0yn  x1yn  ...  xnyn
 		
 		//Tačiau ppm nepalaiko rgb(A) alpha skaičiaus, todėl jis čia nenaudojamas.
-		using StreamWriter writer = new StreamWriter(fileName + ".ppm");
-		writer.WriteLine("P3");
-		writer.WriteLine(img.width + " " + img.height);
-		writer.WriteLine("255");
-
-		//surašome pačią pikselių matricą
-		for(int y = 0; y < img.height; y++)
+		string path = Path.Combine(OutputFolder, fileName + ".ppm");
+		try
 		{
-			for(int x = 0; x < img.width; x++)
+			Directory.CreateDirectory(OutputFolder); //metodas automatiskai patikrina, ar egzistuoja aplankas, praleidžia jei taip.
+			using StreamWriter writer = new StreamWriter(path);
+			writer.WriteLine("P3");
+			writer.WriteLine(img.width + " " + img.height);
+			writer.WriteLine("255");
+
+			//surašome pačią pikselių matricą
+			for(int y = 0; y < img.height; y++)
 			{
-				Pixel p = img.GetPixel(x,y);
-				writer.Write(p.R + " " + p.G + " " + p.B + "  "); // gale du tarpai, taip atskiriami pikseliai ppm faile
+				for(int x = 0; x < img.width; x++)
+				{
+					Pixel p = img.GetPixel(x,y);
+					writer.Write(p.R + " " + p.G + " " + p.B + "  "); // gale du tarpai, taip atskiriami pikseliai ppm faile
+				}
+				writer.WriteLine();
 			}
-			writer.WriteLine();
+		}
+		catch(IOException e)
+		{
+			Console.WriteLine($"Could not save `{path}`: {e.Message}");
+		}
+		catch(UnauthorizedAccessException e)
+		{
+			Console.WriteLine($"No permission to write `{path}`: {e.Message}");
 		}
 	}
 }
