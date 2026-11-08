@@ -1,4 +1,5 @@
-﻿
+﻿using System.IO; //failų valdymui
+
 //struct/class darau public dėl paprastumo dirbti
 //visi jų kintamieji nustatyti public, nes kitaip jie būtų default - private
 public class Image
@@ -88,6 +89,7 @@ class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti p
 		img1.Clear(new Pixel(0,0,0,255));
 		//spausdiname turima nuotrauka:
 		Print(img1);
+		SaveImageAsPPM(img1,"1_eksperimentas");
 		
 		//eksperimentas 2 - nustatome kampinių pikselių spalvas
 		Console.WriteLine("Experiment 2:");
@@ -96,26 +98,29 @@ class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti p
 		img1.SetPixel(0,15,new Pixel(0,0,255,255));
 		img1.SetPixel(15,15,new Pixel(255,255,255,255));
 		Print(img1);
+		SaveImageAsPPM(img1,"2_eksperimentas");
 
 		//eksperimentas 3 - užpildome viduriuką atsitiktine tvarka
 		Console.WriteLine("Experiment 3:");
 		//eksperimentui susikūriu papildomą masyvą 3 bandymui
-		Pixel[] RandomColorSet = {new Pixel (255,0,0,255),new Pixel (0,255,0,255),new Pixel (0,0,255,255),new Pixel (255,255,255,255)};
+		Pixel[] RandomColorSet = {new Pixel (255,0,0,255), new Pixel (0,255,0,255), new Pixel (0,0,255,255), new Pixel (255,255,255,255), new Pixel (123,123,123,255)};
 		Random r = new Random();//generuojame random indeksą, kurį naudosime 3 eksperimente
 		for(int y = 1; y < img1.height - 1; y++)
 		{
 			for(int x = 1; x < img1.width - 1; x++)
 			{
 				//užpildome nuotraukos vidurį atsitiktiniais pikseliais
-				img1.SetPixel(x,y,RandomColorSet[r.Next(0,4)]);
+				img1.SetPixel(x,y,RandomColorSet[r.Next(0,5)]); //naudoju 0-4, nes negrąžina išorinės ribos. T.y. dabar 0<=r<5
 			}
 		}
 		Print(img1);
+		SaveImageAsPPM(img1,"3_eksperimentas");
 
 		//eksperimentas 4 - išvalome nuotrauką. (tikriname, ar Clear metodo default parametrai veikia)
 		Console.WriteLine("Experiment 4:");
 		img1.Clear();
 		Print(img1);
+		SaveImageAsPPM(img1,"4_eksperimentas");
 		Console.WriteLine("Experiments 1-4 finished.");
 	}
 
@@ -136,5 +141,34 @@ class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti p
 			}
 		}
 		Console.Write("\n");
+	}
+
+	static void SaveImageAsPPM(Image img, string fileName)
+	{
+		//ppm formatas:
+		//P3 (arba P6) - headeris, kuris nustato, kokiu formatu rašomi duomenys (ascii/binary)
+		//x y - nuotraukos dimensijos (width height)
+		//255 - maksimalus spalvos intensyvumas
+		//x0y0  x1y0  ...  xny0 - pikseliu spalvu matrica / ekranas
+		//x0y1  x1y1  ...  xny1 - du tarpai tarp pikselių.
+		//....  ....  ...  ....
+		//x0yn  x1yn  ...  xnyn
+		
+		//Tačiau ppm nepalaiko rgb(A) alpha skaičiaus, todėl jis čia nenaudojamas.
+		using StreamWriter writer = new StreamWriter(fileName + ".ppm");
+		writer.WriteLine("P3");
+		writer.WriteLine(img.width + " " + img.height);
+		writer.WriteLine("255");
+
+		//surašome pačią pikselių matricą
+		for(int y = 0; y < img.height; y++)
+		{
+			for(int x = 0; x < img.width; x++)
+			{
+				Pixel p = img.GetPixel(x,y);
+				writer.Write(p.R + " " + p.G + " " + p.B + "  "); // gale du tarpai, taip atskiriami pikseliai ppm faile
+			}
+			writer.WriteLine();
+		}
 	}
 }
