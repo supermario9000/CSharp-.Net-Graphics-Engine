@@ -13,35 +13,29 @@ public class Image
 {
 	public int width;
 	public int height;
-	public Pixel[,] ekranas; //ekranu vadinu 2d masyva [,] padaro 2d masyva
+	public Pixel[] ekranas; //perdarau i vienmati masyva, kad uzimtu maziau atminties ir nebutu error'ų išeinant už ribų
 
 	//konstruktorius
 	public Image(int width, int height)
 	{
 		this.width = width;
 		this.height = height;
-		ekranas = new Pixel[height,width]; //apkeičiu koordinates, kad būtų lengviau dirbti. Toliau visur masyve naudoju [y,x]
+		ekranas = new Pixel[height * width]; //apkeičiu koordinates, kad būtų lengviau dirbti. Toliau visur masyve naudoju [y,x]
 	}
 
 	public void SetPixel(int x, int y, Pixel color)
 	{
-		ekranas[y,x] = color;
+		ekranas[y * width + x] = color; //taip iš esmės padaromas 2d masyvas iš 1d
 	}
 
 	public Pixel GetPixel(int x, int y)
 	{
-		return ekranas[y, x]; // grąžinama kopija, nes Pixel yra struct
+		return ekranas[y * width + x]; // grąžinama kopija, nes Pixel yra struct
 	}
 
 	public void Clear(Pixel color) //visą ekraną nudažome viena spalva
 	{
-		for (int y=0; y < height; y++)
-		{
-			for(int x=0; x < width; x++)
-			{
-				ekranas[y,x]=color;
-			}
-		}
+		Array.Fill(ekranas,color); //ši funkcija būtų 2 ciklai, jei būtų 2d masyvas.
 	}
 }
 
