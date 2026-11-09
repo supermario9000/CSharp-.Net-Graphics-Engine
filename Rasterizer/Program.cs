@@ -53,6 +53,42 @@ public class Image
 		Clear(new Pixel(0,0,0,255)); // negalima įrašyti į pagrindinę funkciją, nes yra žodelis "new", kuris yra ne konstanta.
 	}
 
+	//Žemiau pateikiami metodai skirti figūroms braižyti:
+	public void DrawLine(int x0, int y0, int x1, int y1, Pixel color, int thickness = 1) // width - kokio storumo linija. Pvz. 2 px ar 1 px
+	{
+		//algoritmo idėja: 
+		//1. pagal pitagorą apsiskaičiuojame, kokio ilgio turi gautis tiesė (vektorius)
+		//2. dedame žingsnį pagal liniją nuo x0, link x1 (kuriame pikselyje linija tuo metu)
+		//žingsnis dedamas pagal padalinimą (linija padalinama, taip pat padalinami ir dx dy)
+		//pvz. jei dx = 6, o dy = 3, tuomet žingsnis x = 0.7, o žingsnis y = 0.3 (būtų kitokie skaičiai, bet idėja tokia) 
+		//tuomet apvaliname į žemesnę pusę kas žingsnį kiekvieną x ir y.
+		//3. kartojame kol baigiasi žingsniai.
+		//Pasidarome Pitagoro teoremą (nes apimtų ir vienos ašies ir dviejų ašių tieses)
+		int dx = x1 - x0;
+		int dy = y1 - y0;
+		int steps = Math.Max(Math.Abs(dx), Math.Abs(dy));
+
+		for (int i = 0; i <= steps; i++)
+		{
+			double t; // apskaičiuojame, kiek toli nuėjome mūsų linijoje
+			if(steps == 0)
+			{
+				t = 0; //padedamas taškas/ vieno taško linija
+			}
+			else
+			{
+				t = (double)i / steps; //nuo 0 iki 1
+			}
+
+			int x = (int)Math.Round(x0 + dx * t); //naudojama round, kad būtų piešiama nuo pikselio "centro"
+			int y = (int)Math.Round(y0 + dy * t); //t.y. pikselis yra -0.5<x ar y<0.5
+
+			if (x >= 0 && x < width && y >= 0 && y < height)
+			{
+				ekranas[y * width + x] = color;
+			}
+		}
+	}
 }
 
 public struct Pixel
@@ -123,6 +159,26 @@ class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti p
 		Print(img1);
 		SaveImageAsPPM(img1,"4_eksperimentas");
 		Console.WriteLine("Experiments 1-4 finished.");
+
+		//eksperimentai 5-8 - formu braižymas
+		//eksperimentas 5 - tikslas: išbandyti, ar veikia linijos nubrėžimas.
+		//eksperimentą dalinu į 3 dalis skirtingoms linijoms brėžti.
+		//5.a - įstrižos linijos, kai x0<x1 ir y0<y1 brėžimas
+		Console.WriteLine("Experiment 5a:");
+		img1.DrawLine(1,1,15,13,new Pixel(255,0,0,0)); // nupiešiame liniją
+		Print(img1);
+		SaveImageAsPPM(img1,"5_eksperimentas_a");
+		//5.b - tiesios linijos brėžimas, kai x0>x1, o y0=y1
+		Console.WriteLine("Experiment 5b:");
+		img1.DrawLine(15,13,1,13,new Pixel(255,0,0,0)); // nupiešiame liniją
+		Print(img1);
+		SaveImageAsPPM(img1,"5_eksperimentas_b");
+		//5.c - brėžimas, kai x0<x1 ir y0>y1
+		Console.WriteLine("Experiment 5c:");
+		img1.DrawLine(1,13,15,1,new Pixel(255,0,0,0)); // nupiešiame liniją
+		Print(img1);
+		SaveImageAsPPM(img1,"5_eksperimentas_c");
+		//veikia puikiai
 	}
 
 	static void Print (Image img)
@@ -159,7 +215,7 @@ class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti p
 		string path = Path.Combine(OutputFolder, fileName + ".ppm");
 		try
 		{
-			Directory.CreateDirectory(OutputFolder); //metodas automatiskai patikrina, ar egzistuoja aplankas, praleidžia jei taip.
+			Directory.CreateDirectory(OutputFolder); //metodas automatiškai patikrina, ar egzistuoja aplankas, praleidžia jei taip.
 			using StreamWriter writer = new StreamWriter(path);
 			writer.WriteLine("P3");
 			writer.WriteLine(img.width + " " + img.height);
