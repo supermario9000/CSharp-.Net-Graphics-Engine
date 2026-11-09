@@ -3,6 +3,71 @@ A low level graphics rasterisatoin and processing engine created in C# and .Net 
 
 Disclaimer: The university course doesn't require students to build something like this. This is something that I research and develop on my own, for my own personal use. The course only states that a project must be built with the .Net framework.
 
+# What's done
+
+## Overview
+
+I created three classes: Pixel, Image and Program.  
+* Pixel is a class which represents the pixel. It has only 4 parameters for color: R,G,B and A. The position is determined in the image, so it is not a parameter of Pixel.
+* Image is a collection of pixels. It has three parameters: width, height and ekranas. Width and height are in pixels, while ekranas is an array of Pixel objects.
+* Program is where everything happens. It has experiments, image saving and printing, everything that's needed for development. No parameters, only termporary variables.  
+
+I also created a few functions to draw on the image. Currently the user can:  
+1. change specified pixels,
+2. clear the image (or set it as one color),
+3. draw a line.
+
+Further functions are still in development with experiments 6-8. These include:
+1. Drawing a square.
+2. Drawing a triangle.
+3. Drawing a circle.
+4. Drawing a 3d cube.
+
+## Experiments
+
+Here's an example of an experiment (drawing a square with DrawLine method):  
+
+P3
+16 16
+255
+255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  0 0 0  255 0 0  
+255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0  255 0 0   
+
+What it looks like in the console:   
+Experiment 5:  
+
+RRRRRRRRRRRRRRRR  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+R..............R  
+RRRRRRRRRRRRRRRR  
+
+# Project tasks
 The primary goal is to learn how to manipulate the physical pixels of a display.
 
 The tasks of this project are as follows:
@@ -21,4 +86,4 @@ Considering all of the above, this project's repo will be branched out for easie
 Later, I will consider reworking on this project only in C++. Or even in assembly. To better understand computer graphics.
 
 
-Project is done according to https://haqr.eu/tinyrenderer/ tutorial, changing code to csharp and making the needed adjustments to the code.
+Project is inspired by https://haqr.eu/tinyrenderer/ tutorial. While I am not following it, it is a good reference if I am lost or for comparison.
