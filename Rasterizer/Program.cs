@@ -1,6 +1,4 @@
-﻿using System.IO; //failų valdymui
-
-//struct/class darau public dėl paprastumo dirbti
+﻿//struct/class darau public dėl paprastumo dirbti
 //visi jų kintamieji nustatyti public, nes kitaip jie būtų default - private
 public class Image
 {
@@ -54,13 +52,12 @@ public class Image
 	}
 
 	//Žemiau pateikiami metodai skirti figūroms braižyti:
-	public void DrawLine(int x0, int y0, int x1, int y1, Pixel color, int thickness = 1) // width - kokio storumo linija. Pvz. 2 px ar 1 px
+	public void DrawLine(int x0, int y0, int x1, int y1, Pixel color, int thickness = 1) // thickness - kokio storumo linija. Pvz. 2 px ar 1 px. Dar nepadaryta, bet numatyta
 	{
 		//algoritmo idėja: 
 		//1. pagal pitagorą apsiskaičiuojame, kokio ilgio turi gautis tiesė (vektorius)
 		//2. dedame žingsnį pagal liniją nuo x0, link x1 (kuriame pikselyje linija tuo metu)
-		//žingsnis dedamas pagal padalinimą (linija padalinama, taip pat padalinami ir dx dy)
-		//pvz. jei dx = 6, o dy = 3, tuomet žingsnis x = 0.7, o žingsnis y = 0.3 (būtų kitokie skaičiai, bet idėja tokia) 
+		//žingsnis dedamas pagal padalinimą (padalinami dx, dy. Maksimumas - žingsnių skaičius. Todėl mažesnis d(x ar y) turės mažesnius žingsnius)
 		//tuomet apvaliname į žemesnę pusę kas žingsnį kiekvieną x ir y.
 		//3. kartojame kol baigiasi žingsniai.
 		//Pasidarome Pitagoro teoremą (nes apimtų ir vienos ašies ir dviejų ašių tieses)
@@ -77,7 +74,7 @@ public class Image
 			}
 			else
 			{
-				t = (double)i / steps; //nuo 0 iki 1
+				t = (double)i / steps; //nuo 0 iki 1. Steps - dx ir dy trupmeninė dalis. Pvz jei dx=7, steps bus 1/7
 			}
 
 			int x = (int)Math.Round(x0 + dx * t); //naudojama round, kad būtų piešiama nuo pikselio "centro"
@@ -179,6 +176,24 @@ class Program // kaip int main() per c++, csharp neleidzia funkciju apsirasyti p
 		Print(img1);
 		SaveImageAsPPM(img1,"5_eksperimentas_c");
 		//veikia puikiai
+
+		//eksperimentas 6 - kvadrato nubraižymas iš linijų | pagal šį eksperimentą bus daroma kvadrato brėžimo funkcija
+		//tikslas - turint 2 taškus nubrėžti keturkampį
+		Console.WriteLine("Experiment 5:");
+		img1.Clear();
+		int testx0 = 0;//virsutinis kairinis
+		int testy0 = 0;
+		int testx1 = 15;//apatinis dešininis
+		int testy1 = 15;
+		//taskai 
+		//piešiame keturkampį
+		//1 cikas x0<x1 y1=y0; 2 ciklas x0=x1 y0<y1; 3 ciklas x0>x1 y0=y1; 4 ciklas x1=x0 y0>y1
+		img1.DrawLine(testx0,testy0,testx1,testy0,new Pixel(255,0,0,255));
+		img1.DrawLine(testx1,testy0,testx1,testy1,new Pixel(255,0,0,255));
+		img1.DrawLine(testx0,testy1,testx1,testy1,new Pixel(255,0,0,255));
+		img1.DrawLine(testx0,testy0,testx0,testy1,new Pixel(255,0,0,255));
+		Print(img1);
+		SaveImageAsPPM(img1, "6_eksperimentas");
 	}
 
 	static void Print (Image img)
